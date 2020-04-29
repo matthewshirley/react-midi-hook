@@ -3,35 +3,55 @@ import COMMANDS from '../../constants/commands';
 import { useCallback, useState } from 'react';
 import { getNoteLetter, getMIDICommand } from '../../utils/conversions';
 
-export default function useHandleOnMessage(inputs) {
-  const [activeKeys, setActiveKeys] = useState([]);
+/**
+ * Handles MIDI message events
+ */
+export default function useHandleOnMessage() {
+  const [pressedKeys, setPressedKey] = useState([]);
 
+  /**
+   * Handles "NOTE_ON" events
+   *
+   * @param {Number} position the real key position
+   * @param {Number} velocity the input velocity
+   */
   const noteOn = useCallback(
     ({ position, velocity }) => {
       const octave = parseInt(position / 12 + 1, 10);
       const letter = getNoteLetter(position % 12);
 
-      return setActiveKeys((keysStillPressed) => [
+      return setPressedKey((keysStillPressed) => [
         ...keysStillPressed,
         { position, octave, letter, velocity }
       ]);
     },
-    [setActiveKeys]
+    [setPressedKey]
   );
 
+  /**
+   * Handles "NOTE_OFF" events
+   *
+   * @param {Number} position the real key position
+   */
   const noteOff = useCallback(
     ({ position }) => {
-      return setActiveKeys((keysStillPressed) => [
+      return setPressedKey((keysStillPressed) => [
         ...keysStillPressed.filter((key) => key.position !== position)
       ]);
     },
-    [setActiveKeys]
+    [setPressedKey]
   );
 
-  const onMidiMessage = useCallback(
+  /**
+   * Handles incoming MIDI events from input devices
+   *
+   * @param {Object} event
+   */
+  const onMessage = useCallback(
     (event) => {
       const [command, note, velocity] = event.data;
 
+      // Real keyboard notes are different to MIDI notes
       const position = note - 21;
       const type = getMIDICommand(command);
 
@@ -41,17 +61,5 @@ export default function useHandleOnMessage(inputs) {
     [noteOn, noteOff]
   );
 
-  const listenToInputs = useCallback(() => {
-    if (!inputs) throw new Error('Caught.NoInput');
-
-    for (
-      let input = inputs.next();
-      input && !input.done;
-      input = inputs.next()
-    ) {
-      input.value.onmidimessage = onMidiMessage;
-    }
-  }, [inputs, onMidiMessage]);
-
-  return { listenToInputs, activeKeys };
+  return { pressedKeys, onMessage };
 }

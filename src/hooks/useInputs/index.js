@@ -1,1 +1,1 @@
-export { default } from './useInputs'
+export { default } from './useInputs';

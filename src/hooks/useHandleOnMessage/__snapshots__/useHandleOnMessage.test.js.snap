@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useHandleOnMessage noteOff removes the note from the state when pressed 1`] = `Array []`;
+
+exports[`useHandleOnMessage noteOn adds a note to the state when pressed 1`] = `
+Array [
+  Object {
+    "letter": "A#",
+    "octave": 1,
+    "position": 1,
+    "velocity": 100,
+  },
+]
+`;

@@ -1,9 +1,16 @@
-import useInputs from '../useInputs/useInputs';
-import useHandleOnMessage from '../useHandleOnMessage/useHandleOnMessage';
+import useInputs from '../useInputs';
+import useHandleOnMessage from '../useHandleOnMessage';
 
-export default function useMidiDevice() {
-  const inputs = useInputs();
-  const { listenToInputs, activeKeys } = useHandleOnMessage(inputs);
+/**
+ * Interface to MIDIAccess to handle MIDI inputs and messages.
+ */
+export default function useMidi() {
+  if (!navigator.requestMIDIAccess) {
+    throw new Error('This browser does not support MIDIAccess');
+  }
 
-  return { inputs, activeKeys, listenToInputs };
+  const { pressedKeys, onMessage } = useHandleOnMessage();
+  const { inputs, isError, isReady, initialize } = useInputs(onMessage);
+
+  return { pressedKeys, inputs, isError, isReady, initialize };
 }

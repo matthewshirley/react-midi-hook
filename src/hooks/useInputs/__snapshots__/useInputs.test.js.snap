@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useInputs useEffect sets inputs once loaded 1`] = `Array []`;
+
+exports[`useInputs useEffect sets inputs once loaded 2`] = `
+Array [
+  Object {
+    "id": "0",
+    "name": "Testing",
+    "onmidimessage": undefined,
+  },
+]
+`;

@@ -7,7 +7,9 @@
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "react-midi-hook": "link:.."
+    "react-midi-hook": "link:..",
+    "styled-components": "^5.1.0",
+    "styled-system": "^5.1.5"
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",

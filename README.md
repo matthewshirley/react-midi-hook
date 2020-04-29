@@ -1,5 +1,5 @@
 # react-midi-hook
-Hook to communicate with MIDI devices using MIDIAccess.
+> React hook to easily use MIDI inputs via the Web MIDI API.
 
 ## Install
 
@@ -10,19 +10,21 @@ yarn add --save react-midi-hook
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react'
 import useMidi from 'react-midi-hook'
 
 export default function App() {}
-  const { inputs, activeKeys, listenToInputs } = useMidi();
-
-  if (inputs) listenToInputs();
+  const { pressedKeys } = useMidi();
 
   return (
-    <p>{activeKeys[0].letter}</p>
+    <p>{pressedKeys[0].letter}</p>
   );
 }
 ```
+
+# Browser Support
+
+The Web MIDI API is currently only supported on Edge, Chrome and Opera. Please refer to [Can I use](https://caniuse.com/#feat=midi) for up to date information.
 
 ## License
 
