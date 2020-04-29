@@ -1,0 +1,19 @@
+export const NOTE_OFF = 'NOTE_OFF';
+export const NOTE_ON = 'NOTE_ON';
+export const POLY_KEY_PRESSURE = 'POLY_KEY_PRESSURE';
+export const CONTROL_CHANGE = 'CONTROL_CHANGE';
+export const PROGRAM_CHANGE = 'PROGRAM_CHANGE';
+export const MONO_KEY_PRESSURE = 'MONO_KEY_PRESSURE';
+export const PITCH_BEND = 'PITCH_BEND';
+export const SYSTEM = 'SYSTEM';
+
+export default {
+  NOTE_OFF,
+  NOTE_ON,
+  POLY_KEY_PRESSURE,
+  CONTROL_CHANGE,
+  PROGRAM_CHANGE,
+  MONO_KEY_PRESSURE,
+  PITCH_BEND,
+  SYSTEM
+};
