@@ -40,11 +40,14 @@ export default function useInputs(onMessage) {
    *
    * @param {Number} id
    */
-  const removeInputById = useCallback((id) => {
-    return setInputs((previouslyConnected) => [
-      ...previouslyConnected.filter((input) => input.id !== id)
-    ]);
-  });
+  const removeInputById = useCallback(
+    (id) => {
+      return setInputs((previouslyConnected) => [
+        ...previouslyConnected.filter((input) => input.id !== id)
+      ]);
+    },
+    [setInputs]
+  );
 
   /**
    * Routes MIDI device state changes (connection, disconnection)
