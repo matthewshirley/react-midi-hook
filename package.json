@@ -1,6 +1,6 @@
 {
   "name": "react-midi-hook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React hook to easily use MIDI inputs via the Web MIDI API.",
   "author": "matthewshirley",
   "license": "MIT",
