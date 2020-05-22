@@ -7,6 +7,7 @@ import { getNoteLetter, getMIDICommand } from '../../utils/conversions';
  * Handles MIDI message events
  */
 export default function useHandleOnMessage() {
+  const [event, setEvent] = useState([]);
   const [pressedKeys, setPressedKey] = useState([]);
 
   /**
@@ -16,10 +17,7 @@ export default function useHandleOnMessage() {
    * @param {Number} velocity the input velocity
    */
   const noteOn = useCallback(
-    ({ position, velocity }) => {
-      const octave = parseInt(position / 12 + 1, 10);
-      const letter = getNoteLetter(position % 12);
-
+    ({ position, octave, letter, velocity }) => {
       return setPressedKey((keysStillPressed) => [
         ...keysStillPressed,
         { position, octave, letter, velocity }
@@ -53,13 +51,18 @@ export default function useHandleOnMessage() {
 
       // Real keyboard notes are different to MIDI notes
       const position = note - 21;
+      const octave = parseInt(position / 12 + 1, 10);
+      const letter = getNoteLetter(position % 12);
       const type = getMIDICommand(command);
 
-      if (type === COMMANDS.NOTE_ON) return noteOn({ position, velocity });
-      if (type === COMMANDS.NOTE_OFF) return noteOff({ position });
+      if (type === COMMANDS.NOTE_ON)
+        noteOn({ position, octave, letter, velocity });
+      if (type === COMMANDS.NOTE_OFF) noteOff({ position });
+
+      return setEvent({ position, octave, letter, type, event });
     },
     [noteOn, noteOff]
   );
 
-  return { pressedKeys, onMessage };
+  return { event, pressedKeys, onMessage };
 }
