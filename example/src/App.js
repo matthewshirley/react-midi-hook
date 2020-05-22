@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useMidi from 'react-midi-hook'
 
 import KeyText from './components/KeyText';
@@ -8,8 +8,12 @@ import InstructionText from './components/InstructionText';
 import './index.css';
 
 const App = () => {
-  const { pressedKeys, inputs, isError, isReady, initialize } = useMidi();
+  const { event, pressedKeys, inputs, isError, isReady, initialize } = useMidi();
   
+  useEffect(() => {
+    console.log(event);
+  });
+
   return (
     <div>
       <StartButton initialize={initialize} />

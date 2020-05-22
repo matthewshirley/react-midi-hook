@@ -9,8 +9,8 @@ export default function useMidi() {
     throw new Error('This browser does not support MIDIAccess');
   }
 
-  const { pressedKeys, onMessage } = useHandleOnMessage();
+  const { event, pressedKeys, onMessage } = useHandleOnMessage();
   const { inputs, isError, isReady, initialize } = useInputs(onMessage);
 
-  return { pressedKeys, inputs, isError, isReady, initialize };
+  return { event, pressedKeys, inputs, isError, isReady, initialize };
 }
